@@ -1,7 +1,7 @@
 // ETO YUNG LATITUDE AND LONGITUDE
 const realLocation = {
-  lat: 40.463667,   //Spain
-  lng: -3.74922
+  lat: 40.42447,   //Universidad Central de Madrid
+  lng:  -3.70749
 };
 
 let userGuess = null;
@@ -82,3 +82,4 @@ document.getElementById("submitBtn").onclick = function () {
   map.off('click');
   document.getElementById("submitBtn").disabled = true;
 };
+
