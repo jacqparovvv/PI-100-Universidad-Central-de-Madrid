@@ -39,19 +39,21 @@ map.on('click', function(e) {
 
 // Distance calculation (Haversine)
 function getDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const R = 6371; // Earth's radius in km
+  const toRad = (deg) => deg * Math.PI / 180;
 
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1 * Math.PI / 180) *
-    Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon / 2) ** 2;
+  const φ1 = toRad(lat1);
+  const φ2 = toRad(lat2);
+  const Δφ = toRad(lat2 - lat1);
+  const Δλ = toRad(lon2 - lon1);
 
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const a = Math.sin(Δφ / 2) ** 2 +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ / 2) ** 2;
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
 }
-
 document.getElementById("submitBtn").onclick = function () {
   if (!userGuess) {
     alert("Tap the map to make a guess!");
@@ -82,4 +84,5 @@ document.getElementById("submitBtn").onclick = function () {
   map.off('click');
   document.getElementById("submitBtn").disabled = true;
 };
+
 
